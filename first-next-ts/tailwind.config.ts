@@ -14,6 +14,9 @@ const config: Config = {
       },
       height: {
         sideDesk: "600px"
+      },
+      width: {
+        widthDesk: "1000px"
       }
     },
   },

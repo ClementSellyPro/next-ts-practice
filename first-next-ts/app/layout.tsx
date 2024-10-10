@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex items-center justify-center h-screen">
-        <div className="container flex rounded-xl p-5 md:w-2/3 w-4/5 bg-white">
+        <div className="container flex rounded-xl p-5 md:w-widthDesk w-4/5 bg-white">
           <SideBar />
           {children}
         </div>
