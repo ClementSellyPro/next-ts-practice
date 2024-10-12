@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "./components/SideBar";
+import { ChoiceContextProvider } from "./context/ChoiceContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex items-center justify-center h-screen">
+        <ChoiceContextProvider>
         <div className="container flex rounded-xl p-5 md:w-widthDesk w-4/5 bg-white">
           <SideBar />
           {children}
         </div>
+        </ChoiceContextProvider>
       </body>
     </html>
   );
