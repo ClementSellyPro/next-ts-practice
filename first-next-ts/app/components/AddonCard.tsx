@@ -1,6 +1,6 @@
 "use client"
 
-import React, { MouseEvent, useState } from 'react'
+import React, { MouseEvent } from 'react'
 
 export default function AddonCard({title, children, price}
 :{
@@ -9,7 +9,7 @@ export default function AddonCard({title, children, price}
     price:string
 }) {
 
-    const [selected, setSelected] = useState();
+    // const [selected, setSelected] = useState(); useState
 
     function handleSelection(e: MouseEvent<HTMLElement>){
         const target = e.currentTarget as HTMLElement;
