@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Button from '../components/Button';
 import Title from '../components/Title';
 import PlanCard from '../components/PlanCard';
@@ -12,8 +12,7 @@ import ChoiceContext from '../context/ChoiceContext';
 
 export default function Plan() {
 
-  const [billingChoice, setBillingChoice] = useState('Monthly');
-  const {} = useContext(ChoiceContext);
+  const {billingChoice, setBillingChoice} = useContext(ChoiceContext);
 
   function toggleBillingChoice(){
     if(billingChoice === 'Monthly'){

@@ -1,9 +1,17 @@
 'use client'
-import Image from 'next/image'
-import React, { MouseEvent, useContext, useEffect, useMemo, useState } from 'react'
+
+import Image from 'next/image';
+import React, { MouseEvent, useContext, useEffect, useMemo, useState } from 'react';
 import ChoiceContext from '../context/ChoiceContext';
 
-export default function PlanCard({icon, name, price, billingChoice}: {icon:string, name:string, price:number, billingChoice:string}) {
+interface PlanCardType {
+  icon:string, 
+  name:string, 
+  price:number, 
+  billingChoice:string
+}
+
+export default function PlanCard({icon, name, price, billingChoice}: PlanCardType) {
 
   const { setPlanChoice } = useContext(ChoiceContext);
   const [ planChoiceList, setPlanChoiceList ] = useState<NodeListOf<Element> | null>(null);

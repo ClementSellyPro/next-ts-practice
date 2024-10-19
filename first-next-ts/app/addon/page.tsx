@@ -5,6 +5,7 @@ import Title from '../components/Title'
 import AddonCard from '../components/AddonCard'
 
 export default function Addon() {
+
   return (
     <div className="relative mx-16 w-full py-5">
 
