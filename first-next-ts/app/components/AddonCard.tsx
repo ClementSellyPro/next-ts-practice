@@ -16,16 +16,25 @@ export default function AddonCard({title, children, price}
     function handleSelection(e: MouseEvent<HTMLElement>){
         const target = e.currentTarget as HTMLElement;
         if(target.classList.contains('service')){
-            setAddSelection([...addSelection, 'Online service']);
-            console.log(addSelection);
+            let price: number = 1;
+            if(billingChoice === "Yearly"){
+                price *= 10;
+            }
+            setAddSelection([...addSelection, {name:'Online service', price:price}]);
         }
         if(target.classList.contains('storage')){
-            setAddSelection([...addSelection, 'Larger Storage']);
-            console.log(addSelection);
+            let price: number = 2;
+            if(billingChoice === "Yearly"){
+                price *= 10;
+            }
+            setAddSelection([...addSelection, {name:'Larger Storage', price:price}]);
         }
         if(target.classList.contains('profile')){
-            setAddSelection([...addSelection, 'Customizable profile']);
-            console.log(addSelection);
+            let price: number = 2;
+            if(billingChoice === 'Yearly'){
+                price *= 10;
+            }
+            setAddSelection([...addSelection, {name:'Customizable profile', price:price}]);
         }
     }
 

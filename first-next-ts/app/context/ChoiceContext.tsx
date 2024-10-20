@@ -2,19 +2,29 @@
 
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
+interface addonType {
+    name: string,
+    price: number
+}
+
+interface planType {
+    name: string,
+    price: number
+}
+
 interface ContextType {
-    planChoice: string,
-    setPlanChoice: Dispatch<SetStateAction<string>>,
+    planChoice: planType[],
+    setPlanChoice: Dispatch<SetStateAction<planType[]>>,
     planSelection: string,
     setPlanSelection: Dispatch<SetStateAction<string>>,
     billingChoice: string,
     setBillingChoice: Dispatch<SetStateAction<string>>,
-    addSelection: string[],
-    setAddSelection: Dispatch<SetStateAction<string[]>>
+    addSelection: addonType[],
+    setAddSelection: Dispatch<SetStateAction<addonType[]>>
 }
 
 const ChoiceContext = createContext<ContextType>({
-    planChoice: '',
+    planChoice: [],
     setPlanChoice: () => {},
     planSelection: '',
     setPlanSelection: () => {},
@@ -28,10 +38,10 @@ export default ChoiceContext;
 
 
 export const ChoiceContextProvider = ({children} : {children: React.ReactNode}) => {
-    const [planChoice, setPlanChoice] = useState<string>('');
+    const [planChoice, setPlanChoice] = useState<planType[]>([]);
     const [planSelection, setPlanSelection] = useState<string>('');
     const [billingChoice, setBillingChoice] = useState('Monthly');
-    const [addSelection, setAddSelection] = useState<string[]>([])
+    const [addSelection, setAddSelection] = useState<addonType[]>([])
  
     return(
         <ChoiceContext.Provider value={{ 

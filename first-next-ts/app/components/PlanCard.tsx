@@ -13,7 +13,7 @@ interface PlanCardType {
 
 export default function PlanCard({icon, name, price, billingChoice}: PlanCardType) {
 
-  const { setPlanChoice } = useContext(ChoiceContext);
+  const { planChoice, setPlanChoice } = useContext(ChoiceContext);
   const [ planChoiceList, setPlanChoiceList ] = useState<NodeListOf<Element> | null>(null);
 
   const displayPrice = useMemo(() => {
@@ -26,6 +26,7 @@ export default function PlanCard({icon, name, price, billingChoice}: PlanCardTyp
   
   }, [billingChoice]);
 
+  // reset selected plan card style
   function resetSelectedChoice() {
     for(let i = 0; i < planChoiceList!.length; i++){
       if(planChoiceList![i].classList.contains('selectedChoice')){
@@ -34,22 +35,38 @@ export default function PlanCard({icon, name, price, billingChoice}: PlanCardTyp
     }
   }
 
+  // add style to selected card and add to the state planChoice
   function handlePlanSelection(e: MouseEvent<HTMLElement>){
     const target = e.currentTarget;
     if(target.classList.contains('Arcade')){
-      setPlanChoice('Arcade');
+      let price: number = 9;
+      if(billingChoice === 'Yearly'){
+        price *= 10;
+      }
+      setPlanChoice([{name:'Arcade', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
+      console.log(planChoice);
     }
     if(target.classList.contains('Advanced')){
-      setPlanChoice('Advanced');
+      let price: number = 12;
+      if(billingChoice === 'Yearly'){
+        price *= 10;
+      }
+      setPlanChoice([{name:'Advanced', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
+      console.log(planChoice);
     }
     if(target.classList.contains('Pro')){
-      setPlanChoice('Pro');
+      let price: number = 15;
+      if(billingChoice === 'Yearly'){
+        price *= 10;
+      }
+      setPlanChoice([{name:'Pro', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
+      console.log(planChoice);
     }
   }
 
