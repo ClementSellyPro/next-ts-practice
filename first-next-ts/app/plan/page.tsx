@@ -12,13 +12,37 @@ import ChoiceContext from '../context/ChoiceContext';
 
 export default function Plan() {
 
-  const {billingChoice, setBillingChoice} = useContext(ChoiceContext);
+  const {billingChoice, setBillingChoice, planChoice, setPlanChoice, addSelection, setAddSelection} = useContext(ChoiceContext);
 
+  function multiplication(item: {name:string, price:number}){
+    return {name:item.name, price:(item.price * 10)}
+  }
+  function division(item: {name:string, price:number}){
+    return {name:item.name, price:(item.price / 10)}
+  }
+
+  // toggle the billing and adapt the price stored yet whitin the states
   function toggleBillingChoice(){
-    if(billingChoice === 'Monthly'){
+    if(billingChoice === 'Monthly' && planChoice[0].price < 80 && addSelection[0].price < 5){
+      // toggle the billing choice to yearly
       setBillingChoice('Yearly');
-    }else{
+      // change the price plan for the yearly pricing
+      const newPrice = planChoice[0].price * 10;
+      const currentName = planChoice[0].name;
+      setPlanChoice([{name: currentName, price: newPrice}])
+      // change the price add for the yearly pricing
+      const addons = addSelection.map(multiplication)
+      setAddSelection(addons);
+    }else{  
+      // toggle the billing choice to monthly
       setBillingChoice('Monthly');
+      // change the price plan for the monthly pricing
+      const newPrice = planChoice[0].price / 10;
+      const currentName = planChoice[0].name;
+      setPlanChoice([{name: currentName, price: newPrice}])
+      // change the price add for the monthly pricing
+      const addons = addSelection.map(division)
+      setAddSelection(addons);
     }
   }
 
