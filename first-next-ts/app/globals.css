@@ -25,3 +25,8 @@ body {
   border: 1px solid #4c2dd6;
   background-color: #e7e4f7;
 }
+
+.selected-addon{
+  border: 1px solid #4c2dd6;
+  background-color: #f8fafc;
+}
