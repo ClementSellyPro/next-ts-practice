@@ -24,13 +24,7 @@ export default function AddonCard({title, children, price}: AddonCardType) {
         const addOnCardList = document.querySelectorAll('.addOnCard');
 
         for(let i = 0; i < addOnCardList.length; i++){
-            if(addSelection.some(element => element.name === 'Online service')  && addOnCardList[i].classList.contains('Online service')){
-                addOnCardList[i].classList.add('selected-addon');
-            }
-            if(addSelection.some(element => element.name === 'Larger Storage')  && addOnCardList[i].classList.contains('Larger Storage')){
-                addOnCardList[i].classList.add('selected-addon');
-            }
-            if(addSelection.some(element => element.name === 'Customizable profile')  && addOnCardList[i].classList.contains('Customizable profile')){
+            if(addSelection.some(element => element.name === title)  && addOnCardList[i].classList.contains(title)){
                 addOnCardList[i].classList.add('selected-addon');
             }
         }

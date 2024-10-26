@@ -8,12 +8,12 @@ interface PlanCardType {
   icon:string, 
   name:string, 
   price:number, 
-  billingChoice:string
+  billingChoice:string,
 }
 
 export default function PlanCard({icon, name, price, billingChoice}: PlanCardType) {
 
-  const { planChoice, setPlanChoice } = useContext(ChoiceContext);
+  const { planChoice, setPlanChoice, pageChange } = useContext(ChoiceContext);
   const [ planChoiceList, setPlanChoiceList ] = useState<NodeListOf<Element> | null>(null);
 
   const displayPrice = useMemo(() => {
@@ -46,7 +46,6 @@ export default function PlanCard({icon, name, price, billingChoice}: PlanCardTyp
       setPlanChoice([{name:'Arcade', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
-      console.log(planChoice);
     }
     if(target.classList.contains('Advanced')){
       let price: number = 12;
@@ -56,7 +55,6 @@ export default function PlanCard({icon, name, price, billingChoice}: PlanCardTyp
       setPlanChoice([{name:'Advanced', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
-      console.log(planChoice);
     }
     if(target.classList.contains('Pro')){
       let price: number = 15;
@@ -66,18 +64,24 @@ export default function PlanCard({icon, name, price, billingChoice}: PlanCardTyp
       setPlanChoice([{name:'Pro', price:price}]);
       resetSelectedChoice();
       target.classList.add('selectedChoice');
-      console.log(planChoice);
     }
   }
 
   useEffect(() => {
     setPlanChoiceList(document.querySelectorAll<Element>('.PlanCard'));
-  }, []);
+    if(planChoice.length > 0 && planChoiceList){
+      for(let i = 0; i < planChoiceList?.length; i++){
+        if(planChoiceList[i].classList.contains(planChoice[0].name)){
+          planChoiceList[i].classList.add('selectedChoice');
+        }
+      }
+    }
+  }, [pageChange]);
 
   return (
     <div className={`PlanCard flex flex-col gap-16 border p-6 w-44 mt-12 rounded-xl
-    hover:cursor-pointer hover:border-indigo-700 ${name}
-    `} onClick={(e: MouseEvent<HTMLElement>) => handlePlanSelection(e)}>
+    hover:cursor-pointer hover:border-indigo-700 ${name}`} 
+    onClick={(e: MouseEvent<HTMLElement>) => handlePlanSelection(e)}>
         <div>
           <Image src={icon} alt='Plan' />
         </div>

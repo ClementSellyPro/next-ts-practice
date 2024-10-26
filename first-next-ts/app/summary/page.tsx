@@ -8,7 +8,7 @@ import ChoiceContext from '../context/ChoiceContext'
 
 export default function Summary() {
 
-  const {billingChoice, planChoice, addSelection} = useContext(ChoiceContext);
+  const {billingChoice, planChoice, addSelection, pageChange, setPageChange} = useContext(ChoiceContext);
 
   return (
     <div className="relative mx-16 w-full py-5">
@@ -21,7 +21,7 @@ export default function Summary() {
         <div className='flex items-center justify-between pb-4 border-b'>
           <div>
             <p className='text-blue-900 font-semibold'>{planChoice[0].name} ({billingChoice})</p>
-            <Link href='/plan' className='underline hover:cursor-pointer  hover:text-blue-700'>Change</Link>
+            <Link onChange={() => setPageChange(!pageChange)} href='/plan' className='underline hover:cursor-pointer  hover:text-blue-700'>Change</Link>
           </div>
           <p className='text-blue-900 font-semibold'>${planChoice[0].price}/{billingChoice === 'Monthly'? 'mo':'yr'}</p>
         </div>

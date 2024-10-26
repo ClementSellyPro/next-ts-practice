@@ -23,26 +23,37 @@ export default function Plan() {
 
   // toggle the billing and adapt the price stored yet whitin the states
   function toggleBillingChoice(){
-    if(billingChoice === 'Monthly' && planChoice[0].price < 80 && addSelection[0].price < 5){
-      // toggle the billing choice to yearly
-      setBillingChoice('Yearly');
-      // change the price plan for the yearly pricing
-      const newPrice = planChoice[0].price * 10;
-      const currentName = planChoice[0].name;
-      setPlanChoice([{name: currentName, price: newPrice}])
-      // change the price add for the yearly pricing
-      const addons = addSelection.map(multiplication)
-      setAddSelection(addons);
-    }else{  
-      // toggle the billing choice to monthly
-      setBillingChoice('Monthly');
-      // change the price plan for the monthly pricing
-      const newPrice = planChoice[0].price / 10;
-      const currentName = planChoice[0].name;
-      setPlanChoice([{name: currentName, price: newPrice}])
-      // change the price add for the monthly pricing
-      const addons = addSelection.map(division)
-      setAddSelection(addons);
+    if(addSelection.length > 0){
+
+      if(billingChoice === 'Monthly' && planChoice[0]?.price < 80 && addSelection[0]?.price < 5){
+        // toggle the billing choice to yearly
+        setBillingChoice('Yearly');
+        // change the price plan for the yearly pricing
+        const newPrice = planChoice[0]?.price * 10;
+        const currentName = planChoice[0]?.name;
+        setPlanChoice([{name: currentName, price: newPrice}])
+        // change the price add for the yearly pricing
+        const addons = addSelection.map(multiplication)
+        setAddSelection(addons);
+      }else{  
+        // toggle the billing choice to monthly
+        setBillingChoice('Monthly');
+        // change the price plan for the monthly pricing
+        const newPrice = planChoice[0]?.price / 10;
+        const currentName = planChoice[0]?.name;
+        setPlanChoice([{name: currentName, price: newPrice}])
+        // change the price add for the monthly pricing
+        const addons = addSelection.map(division)
+        setAddSelection(addons);
+      }
+
+    
+    }else{
+      if(billingChoice === 'Monthly'){
+        setBillingChoice('Yearly');
+      }else{
+        setBillingChoice('Monthly');
+      }
     }
   }
 
@@ -65,7 +76,7 @@ export default function Plan() {
             <p className={billingChoice === 'Monthly' ? 'text-indigo-800':''}>Monthly</p>
 
             <label className="inline-flex items-center cursor-pointer">
-              <input onChange={toggleBillingChoice} type="checkbox" value="" className="sr-only peer" />
+              <input onChange={toggleBillingChoice} type="checkbox" value="" className="sr-only peer" checked={billingChoice === 'Monthly' ? false : true} />
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
             </label>
 
