@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import MapContainer from "./components/MapContainer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,11 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <MapContainer />
-
       </body>
     </html>
   );
