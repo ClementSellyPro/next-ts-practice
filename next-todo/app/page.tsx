@@ -5,22 +5,32 @@ import TaskListContainer from './components/TaskListContainer';
 import TaskCard from './components/TaskCard';
 // import TaskCardModify from './components/TaskCardModify';
 import TaskCardAdd from './components/TaskCardAdd';
-import { useEffect, useState } from 'react';
-import { taskType } from './type/TaskType';
+import { useContext, useEffect, useState } from 'react';
+import TaskContext from './context/TaskContext';
+import Loading from './components/Loading';
+import NoTask from './components/NoTask';
 
 
 export default function Home() {
-  const [data, setData] = useState<taskType[]>([]); 
+  const {taskList, setTaskList} = useContext(TaskContext);
   const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("http://localhost:3000/tasks.json");
-      const data: taskType[] = await res.json();
-      setData(data);
+      setIsLoading(true);
+    try{
+      const fetchStorage = localStorage.getItem("taskListStorage");
+      if(fetchStorage){
+        setTaskList(JSON.parse(fetchStorage));
+      }
+    } catch(error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false);
     }
-    fetchData();
-  },[])
+
+    // eslint-disable-next-line
+  }, [])
 
   // toogle isAddingTask task to display or hide the TaskCardAdd component
   function handleAddButton(){
@@ -39,9 +49,14 @@ export default function Home() {
       {/* <TaskCardModify /> */}
 
       <TaskListContainer>
-        {data.map((task) => {
-          return <TaskCard key={task.id} title={task.title} description={task.description} limit={task.date} />
-        } )}
+        
+        {isLoading ? <Loading /> : null}
+
+
+        { 
+        taskList.length > 0 ?
+        taskList.map(task => <TaskCard key={task.id} id={task.id} title={task.title} description={task.description} limit={task.date} />) : <NoTask />
+        }
       </TaskListContainer>
     </div>
   );
