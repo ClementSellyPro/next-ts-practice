@@ -29,12 +29,14 @@ function TaskCardAdd({setIsAddingTask}: {setIsAddingTask:Dispatch<SetStateAction
   }
   
   function handleAddButon(){
-    const newId = uuidv4();
-    const newTask: taskType = {id: newId, title: title, description:description, completed: false, date:date};
-    const newList = [...taskList , newTask];
-    setTaskList(newList);
-    localStorage.setItem("taskListStorage", JSON.stringify(newList));
-    setIsAddingTask(false);
+    if(title !== '' || description !== '' || date !== ''){
+      const newId = uuidv4();
+      const newTask: taskType = {id: newId, title: title, description:description, completed: false, date:date};
+      const newList = [...taskList , newTask];
+      setTaskList(newList);
+      localStorage.setItem("taskListStorage", JSON.stringify(newList));
+      setIsAddingTask(false);
+    }
   }
 
   function handleDiscardButton(){

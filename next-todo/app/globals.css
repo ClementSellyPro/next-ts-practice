@@ -12,3 +12,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.filter-selected{
+  background-color: #ebc53f;
+  color: white;
+  font-weight: bold;
+}

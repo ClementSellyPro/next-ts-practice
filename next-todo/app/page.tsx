@@ -7,17 +7,17 @@ import TaskCard from './components/TaskCard';
 import TaskCardAdd from './components/TaskCardAdd';
 import { useContext, useEffect, useState } from 'react';
 import TaskContext from './context/TaskContext';
-import Loading from './components/Loading';
 import NoTask from './components/NoTask';
+import { taskType } from './type/TaskType';
 
 
 export default function Home() {
-  const {taskList, setTaskList} = useContext(TaskContext);
+  const {taskList, setTaskList, filter} = useContext(TaskContext);
   const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [tasksToDisplay, setTasksToDisplay] = useState<taskType[]>(taskList);
 
+  // fetch taskList from localStorage
   useEffect(() => {
-      setIsLoading(true);
     try{
       const fetchStorage = localStorage.getItem("taskListStorage");
       if(fetchStorage){
@@ -25,12 +25,24 @@ export default function Home() {
       }
     } catch(error) {
       console.log(error)
-    } finally {
-      setIsLoading(false);
     }
 
     // eslint-disable-next-line
   }, [])
+
+  useEffect(() => {
+    if(filter === "Completed"){
+      const copyList = [...taskList].filter(task => task.completed === true)
+      setTasksToDisplay(copyList);
+    }
+    if(filter === "Active"){
+      const copyList = [...taskList].filter(task => task.completed === false);
+      setTasksToDisplay(copyList);
+    }
+    if(filter === "All tasks"){
+      setTasksToDisplay(taskList);
+    }
+  }, [filter, taskList])
 
   // toogle isAddingTask task to display or hide the TaskCardAdd component
   function handleAddButton(){
@@ -49,13 +61,12 @@ export default function Home() {
       {/* <TaskCardModify /> */}
 
       <TaskListContainer>
-        
-        {isLoading ? <Loading /> : null}
-
-
+        {/* list the task according filter (All, completed or active) */}
         { 
-        taskList.length > 0 ?
-        taskList.map(task => <TaskCard key={task.id} id={task.id} title={task.title} description={task.description} limit={task.date} />) : <NoTask />
+          taskList.length > 0 ?
+          tasksToDisplay.map(task => <TaskCard key={task.id} id={task.id} title={task.title} description={task.description} limit={task.date} completed={task.completed} />) 
+          : 
+          <NoTask />
         }
       </TaskListContainer>
     </div>
