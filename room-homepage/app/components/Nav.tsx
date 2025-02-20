@@ -7,7 +7,7 @@ import Logo from '@/public/images/logo.svg';
 
 function Nav() {
   return (
-    <div className='flex items-center gap-16 h-16'>
+    <div className='relative flex items-center gap-16 h-10'>
       {/**Logo part */}
       <div className='md:block flex justify-center items-center md:w-fit w-full'>
         <Link href={'/'}>

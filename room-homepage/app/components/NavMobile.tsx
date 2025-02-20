@@ -18,7 +18,7 @@ function NavMobile() {
 
     return (
         <div className='flex justify-around items-center md:hidden'>
-            <div className='z-20'>
+            <div className='z-50'>
             {
                 !isMenuOpen ? <Image onClick={handleMenuClick} className='cursor-pointer absolute top-12 left-10' src={Hamburger} alt='Hamburger icon' height={20} width={20} /> : <Image onClick={handleMenuClick} className='cursor-pointer absolute top-12 left-10' src={CloseIcon} alt='Close icon' height={20} width={20} />
             }
@@ -26,7 +26,7 @@ function NavMobile() {
             
             {
                 isMenuOpen ? 
-                <div className='flex items-center justify-center w-full h-32 bg-white absolute top-0 left-0'>
+                <div className='flex items-center justify-center w-full h-32 bg-white absolute top-0 left-0 z-40'>
                     <NavLinks />
                 </div> :
                 <></>
